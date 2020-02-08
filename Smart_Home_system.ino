@@ -59,7 +59,7 @@ void loop() {
     digitalWrite(kPowerSavePin, HIGH);
       getallval();
         cycle++;
-			if (posstatus)  detectsensors();
+		if(posstatus)  detectsensors();
      
       detectpower(); 
         switch (homestatus){
@@ -86,8 +86,8 @@ void loop() {
       		        homestatus = 0;
       			        break;
           
-    	    case 2:                           //状态2，任何时候，低于光感应值门限或不在舒适温度范围（温度感应值低于或高于门限）；
-    		    if (cycle >= 720) {             //      和每隔6分钟调整太阳能板位置，工作12分种后关机。
+    	    case 2:                           //状态2，在待机过程中，当检测到光感应值低于门限或着温度感应值低于或高于门限；
+    		    if (cycle >= 721) {             //      跳出待机状态，每隔6分钟调整太阳能板位置，工作12分种后关机。
     			      cycle = 0;
     			        EEPROM.put(0x00, cycle);
     			          powerdown();
