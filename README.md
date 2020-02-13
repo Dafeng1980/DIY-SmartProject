@@ -1,4 +1,6 @@
 # SmartHome Project
-for Winter vacation homework
+Winter vacation homework
 
- ![image](https://github.com/Dafeng1980/SmartHomeProject/raw/master/Schematics.png)
+ ![image](https://github.com/Dafeng1980/SmartHomeProject/raw/master/Schematics.png) <br/>
+ 
+  ![image](https://github.com/Dafeng1980/SmartHomeProject/raw/master/project1.jpg width="280") 
