@@ -6,7 +6,7 @@
  Ardunio硬件设置基于：https://github.com/MCUdude/MegaCore
 
   Created:     2020/2/8 
-  Author:     Dafeng / Zhangcan  
+  Author:     Dafeng & Zhangcan  
  */
  
 #include <Servo.h>
@@ -49,8 +49,10 @@ void setup() {
 
       myservo.attach(kServoPin);
         eeprominit();
-          myservo.write(pos);
             Serial.begin(115200);
+            Serial.print("---Position--- = ");
+              Serial.println(pos);
+              delay(100);
                   homestatus = 0;
                     posstatus = true;
     }
@@ -59,18 +61,19 @@ void loop() {
     digitalWrite(kPowerSavePin, HIGH);
       getallval();
         cycle++;
-		if(posstatus)  detectsensors();
+		 if(posstatus)  detectsensors();
      
-      detectpower(); 
+      detectpower();
+      //homestatus = 2; 
         switch (homestatus){
           case 0:                         //状态0， 正常状态，完成自动检测各种信号后自动待机1.9秒，
-              if (cycle >= 201){          //       和每隔3分钟时间调整太阳能板位置。待机6分钟后关机。
+              if (cycle >= 101){          //       和每隔1.5分钟时间调整太阳能板位置。待机3分钟后关机。
                     cycle = 0;
                       EEPROM.put(0x00, cycle);
-                        powerdown();               //待机约6分钟后，关机
+                        powerdown();               //待机约3分钟后，关机
                   }
     
-        	    if (cycle == 1 || !(cycle % 100)) {    
+        	    if (cycle == 1 || !(cycle % 50)) {    
         		        posstatus = false;
         		          homestatus = 1;
         	      }	  
@@ -87,12 +90,12 @@ void loop() {
       			        break;
           
     	    case 2:                           //状态2，在待机过程中，当检测到光感应值低于门限或着温度感应值低于或高于门限；
-    		    if (cycle >= 721) {             //      跳出待机状态，每隔6分钟调整太阳能板位置，工作12分种后关机。
+    		    if (cycle >= 361) {             //      跳出待机状态，每隔3分钟调整太阳能板位置，工作6分种后关机。
     			      cycle = 0;
     			        EEPROM.put(0x00, cycle);
     			          powerdown();
     		      }
-    			  if (!(cycle % 360))
+    			  if (!(cycle % 180))
               {
                   posstatus = false;
                     homestatus = 1;
@@ -113,6 +116,7 @@ void loop() {
     		  	powerdown();
     			    break;
           }
+        //digitalWrite(kPowerSavePin, LOW);
     	  delay(1000);
            }
 
@@ -125,7 +129,8 @@ void portinit(){
 
 void eeprominit(){
       EEPROM.get(0x10, pos);
-        if(pos >90 && pos < 1)
+      myservo.write(pos);
+        if(pos > 90 && pos < 1)
           {
             pos = 3;
               EEPROM.put(0x10, pos);
@@ -163,14 +168,14 @@ void eeprominit(){
  void detectsensors(){
 		bool tempstatus = true;
 		    getsensors();
-          if(read_light_h < 300 && read_diff < 200){
+          if(read_light_h < 310 && read_diff < 200){
                 uint8_t lightvalue = read_light_h;
-                  lightvalue = map(lightvalue, 20, 380, 255, 0);    //把光度值转换PWM输出（0-255）；约光越低PWM值越高!
+                  lightvalue = map(lightvalue, 20, 390, 255, 0);    //把光度值转换PWM输出（0-255）；约光越低PWM值越高!
                     analogWrite(kLightPin, lightvalue);             
                       homestatus = 2;
                         tempstatus = false; 
                   }
-                else if (read_light_h > 350 && read_diff > 220){
+                else if (read_light_h > 360 && read_diff > 230){
                           digitalWrite(kLightPin, LOW);
                             tempstatus = true;
                               homestatus = 0;
@@ -196,7 +201,7 @@ void eeprominit(){
 
 void detectpower(){
 		read_battery = analogRead(kBatteryPin);
-       if (read_battery < 450 )  homestatus = 3;   	 
+       if (read_battery < 435 )  homestatus = 3;   	 
 }
 
 void servoselftest(){
@@ -217,31 +222,31 @@ void setpos(){
         for (pos; pos <= 90; pos += 1)
               { 
                 myservo.write(pos);
-                  delay(1200);
+                  delay(1500);
                     getsensors();
                       firstl = read_light_l;
                       firsth = read_light_h;
                         pos = pos + 2;
                           myservo.write(pos);
-                            delay(1200);
+                            delay(1500);
                               getsensors();
                                 diffl = read_light_l - firstl;
                                 diffh = read_light_h - firsth;
-                                  if(diffh <= 0 && diffl <= 0)  break;
+                                  if(diffh <= 0 && diffl < 0) break;
                         }
         for (pos; pos >= 3; pos -=1) {
               myservo.write(pos);
-                delay(1200);
+                delay(1500);
                   getsensors();
                     firstl = read_light_l;
                     firsth = read_light_h;     
                       pos = pos - 2;
                         myservo.write(pos);
-                          delay(1200);
+                          delay(1500);
                             getsensors();
                               diffl = read_light_l - firstl;
                               diffh = read_light_h - firsth;
-                                if(diffh <= 0 && diffl <= 0)  break;
+                                if(diffh <= 0 && diffl < 0) break;
                   }      
 //        Serial.print("---Position--- = ");
 //              Serial.println(pos);
