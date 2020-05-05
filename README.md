@@ -1,5 +1,5 @@
 # SmartHome Project
-Winter vacation homework <br/>
+School Winter Vacation Electronic Production（Homework） <br/>
 
 ![image](https://github.com/Dafeng1980/SmartHomeProject/raw/master/doc/Smart.PNG) <br/>
 
