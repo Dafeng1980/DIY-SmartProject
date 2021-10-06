@@ -8,7 +8,7 @@
 * 按键x1；SS8550，2N3904三极管各x1
 
 #电气原理图
-![image](https://github.com/Dafeng1980/DIY-SmartProject/smartTrashbin/raw/master/Doc/smartSCH.png)  <br/>
+![image](https://dafeng1980.coding.net/p/dyi-xiaofaming/d/DIY_smart_trashbin/git/raw/master/Doc/smartSCH.png?tab=file)  <br/>
 
 #控制原理
 * 超声波HS-SR04感应器检测到物体距离小于20厘米时，执行驱动SG90伺服马达。
