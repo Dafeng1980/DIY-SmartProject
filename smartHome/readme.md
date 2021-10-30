@@ -1,9 +1,5 @@
-{\rtf1\ansi\ansicpg1252\deff0\nouicompat{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
-{\*\generator Riched20 10.0.18362}\viewkind4\uc1 
-\pard\sa200\sl276\slmult1\f0\fs22\lang9 # Smarthome Project\par
- ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/Smart.PNG) <br/>\par
- ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/Schematics.png) <br/>\par
-  ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/project1.JPG) <br/>\par
-  ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/project2.JPG)\par
-\par
-}
+ # Smarthome Project 
+ ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/Smart.PNG) <br/>
+ ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/Schematics.png) <br/>
+ ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/project1.JPG) <br/>
+ ![image](https://github.com/Dafeng1980/DIY-SmartProject/raw/master/doc/project2.JPG) 
